@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { clientApi } from "~/services/http.client";
 import type { Root } from "./type";
+import { serverApi } from "~/services/http.server";
 
 type AppState = {
   posts: Root;
@@ -24,3 +25,8 @@ export const useSurveyStore = create<AppState>((set, get) => ({
     }
   },
 }));
+
+export const useSurvey = async () => {
+  const res = await serverApi.get<Root>("/surveys");
+  return res.data;
+};
